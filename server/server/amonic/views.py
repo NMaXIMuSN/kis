@@ -1,8 +1,8 @@
 import json
 from django.shortcuts import render
-from amonic.models import User, Office, Role, UserLog, UserCrashReport
+from amonic.models import User, Office, Role, UserLog, UserCrashReport, Country
 
-from amonic.serializers import IdTitleSerializer, TitleSerializer, UserListSerializer, UserAddSerializer, EditRoleSerializer, ToggleUserActiveSerializer, UserActivitySerializer, UserCrashReportSerializer, IsGracefulSerializer
+from amonic.serializers import IdTitleSerializer, TitleSerializer, UserListSerializer, UserAddSerializer, CountrySerializer, EditRoleSerializer, ToggleUserActiveSerializer, UserActivitySerializer, UserCrashReportSerializer, IsGracefulSerializer
 from django.utils import timezone
 from django.db import transaction
 from django.contrib.auth import login, logout
@@ -96,6 +96,11 @@ def logout_user(request):
 class OfficeListView(ListAPIView):
     queryset = Office.objects.all()
     serializer_class = IdTitleSerializer
+    permission_classes = [IsAdminUser,]
+
+class CountryListView(ListAPIView):
+    queryset = Country.objects.all()
+    serializer_class = CountrySerializer
     permission_classes = [IsAdminUser,]
 
 class RoleListView(ListAPIView):

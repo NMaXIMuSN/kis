@@ -21,5 +21,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('api/', include("amonic.urls")),
     path('api/flight.', include("flight.urls")),
+    path('api/tickets', include("tickets.urls")),
 
 ]

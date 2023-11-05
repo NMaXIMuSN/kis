@@ -12,6 +12,7 @@ from amonic.views import (
     UserActivityView,
     SendReportView,
     IsGracefulLogoutView,
+    CountryListView,
     login_user,
     logout_user,
 )
@@ -28,6 +29,7 @@ urlpatterns = [
 
     path("edit_role", EditRoleView.as_view()),
     path("add_user", UserAddView.as_view()),
+    path("country_list", CountryListView.as_view()),
     path("office_list", OfficeListView.as_view()),
     path("role_list", RoleListView.as_view()),
     path("user_list", UserListView.as_view()),
