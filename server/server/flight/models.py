@@ -23,7 +23,6 @@ class Aircraft(models.Model):
 
 
 class Schedule(models.Model):
-
     date = models.DateField()
     time = models.TimeField()
     aircraft = models.ForeignKey("flight.Aircraft", on_delete=models.CASCADE,)

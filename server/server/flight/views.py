@@ -2,6 +2,7 @@ import codecs
 import csv
 import datetime
 from typing import Any
+# from datetime import timedelta
 
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
@@ -15,7 +16,7 @@ from flight.models import Schedule, Airport, Route, Aircraft
 from flight.serializers import SchedulesListSerializer, CancelFlightSerializer, AirportSerialzier, UploadFileSerilizer, \
     UploadFileResSerilizer, ScheduleEditSerializer
 from utils.common import to_int
-
+from rest_framework.decorators import api_view, permission_classes
 
 class SchedulesListView(ListAPIView):
     permission_classes = [AllowAny]
@@ -23,7 +24,62 @@ class SchedulesListView(ListAPIView):
     serializer_class = SchedulesListSerializer
     filter_backends = [filters.OrderingFilter, DjangoFilterBackend]
     ordering_fields = ['date', 'time', 'economy_price', 'confirmed']
-    filterset_fields = ["route__departure_airport__iata_code", "route__arrival_airport__iata_code", "flight_number", "date"]
+    filterset_fields = ["route__departure_airport__iata_code", "route__arrival_airport__iata_code", "flight_number"]
+
+    def filter_queryset(self, queryset):
+        for backend in list(self.filter_backends):
+            queryset = backend().filter_queryset(self.request, queryset, self)
+
+        if 'date' in self.request.query_params:
+            date = self.request.query_params['date']
+            try:
+                date = datetime.datetime.strptime(date, '%Y-%m-%d')
+            except ValueError:
+                return Response({'error': 'Invalid date format.'}, status=status.HTTP_400_BAD_REQUEST)
+
+            delta = datetime.timedelta(days=3)
+            
+            if 'after_before' in self.request.query_params:
+                queryset = queryset.filter(
+                    date__range=[date - delta, date + delta]
+                )
+            else:
+                queryset = queryset.filter(
+                    date=date
+                )
+                
+        return queryset
+class SchedulesListViewReturn(ListAPIView):
+    permission_classes = [AllowAny]
+    queryset = Schedule.objects.all().order_by("date", "time")
+    serializer_class = SchedulesListSerializer
+    filter_backends = [filters.OrderingFilter, DjangoFilterBackend]
+    ordering_fields = ['date', 'time', 'economy_price', 'confirmed']
+    filterset_fields = ["route__departure_airport__iata_code", "route__arrival_airport__iata_code", "flight_number"]
+
+    def filter_queryset(self, queryset):
+        for backend in list(self.filter_backends):
+            queryset = backend().filter_queryset(self.request, queryset, self)
+
+        if 'date' in self.request.query_params:
+            date = self.request.query_params['date']
+            try:
+                date = datetime.datetime.strptime(date, '%Y-%m-%d')
+            except ValueError:
+                return Response({'error': 'Invalid date format.'}, status=status.HTTP_400_BAD_REQUEST)
+
+            delta = datetime.timedelta(days=3)
+            
+            if 'after_before' in self.request.query_params:
+                queryset = queryset.filter(
+                    date__range=[date - delta, date + delta]
+                )
+            else:
+                queryset = queryset.filter(
+                    date=date
+                )
+                
+        return queryset
 
 class CancelFlightView(UpdateAPIView):
     permission_classes = [AllowAny]

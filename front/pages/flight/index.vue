@@ -3,6 +3,11 @@
     class="flight"
   >
     <v-container>
+      <nuxt-link to="/flight/search">
+        <v-btn block color="primary" height="57" class="mb-10">
+          Go to Search
+        </v-btn>
+      </nuxt-link>
       <flight-filter class="flight__filters" />
       <v-data-table
         :headers="headers"

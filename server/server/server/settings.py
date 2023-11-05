@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "amonic",
     "flight",
     "django_filters",
+    "tickets"
 ]
 
 MIDDLEWARE = [

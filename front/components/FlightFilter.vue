@@ -164,7 +164,7 @@ export default {
       return this.$store.state.flight.airportList
     },
     airportListTo() {
-      return this.airportList.filter(el => el.id !== this.filters.from)
+      return this.airportList.filter(el => el.iata_code !== this.filters.from)
     },
   },
   methods: {

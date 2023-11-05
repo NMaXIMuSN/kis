@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from amonic.models import User, Role, UserLog, UserCrashReport
+from amonic.models import User, Role, UserLog, UserCrashReport, Country
 
 class TitleSerializer(serializers.Serializer):
     title = serializers.CharField()
@@ -61,6 +61,11 @@ class ToggleUserActiveSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ("id", "is_active")
+
+class CountrySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Country
+        fields = ("id", "name")
 
 class UserActivitySerializer(serializers.ModelSerializer):
     class Meta:
