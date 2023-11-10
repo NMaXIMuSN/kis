@@ -10,6 +10,7 @@ class AircraftSerializer(serializers.ModelSerializer):
             "id",
             "name",
             "make_model",
+            "total_seats"
         )
 
 

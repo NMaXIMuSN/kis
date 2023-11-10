@@ -28,6 +28,24 @@
         Flight
       </div>
       <div
+        class="header__text"
+        @click="$router.push('/amenities')"
+      >
+        Amenities
+      </div>
+      <div
+        class="header__text"
+        @click="$router.push('/amenities/stats')"
+      >
+        Amenities Stats
+      </div>
+      <div
+        class="header__text"
+        @click="$router.push('/stats')"
+      >
+        All Stats
+      </div>
+      <div
         class="header__text header__text-exit"
         @click="logout"
       >
