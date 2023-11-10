@@ -18,7 +18,20 @@ class Tickets(models.Model):
     passport_number = models.CharField(max_length=255)
     passport_country = models.ForeignKey("amonic.Country", on_delete=models.CASCADE)
     confirmed = models.SmallIntegerField(default=False)
-    booking_reference = models.SmallIntegerField(default=False)
+    booking_reference = models.CharField(max_length=6)
 
     # def __str__(self):
     #     # return self.pk
+
+class Amenities(models.Model):
+    service = models.CharField(max_length=255)
+    price = models.IntegerField()
+
+class AmenitiesTickets(models.Model):
+    amenity = models.ForeignKey("tickets.Amenities", on_delete=models.CASCADE)
+    ticket = models.ForeignKey("tickets.Tickets", on_delete=models.CASCADE)
+    price = models.IntegerField()
+
+class AmenitiesCabinType(models.Model):
+    amenities = models.ForeignKey("tickets.Amenities", on_delete=models.CASCADE)
+    cabin_type = models.ForeignKey("tickets.CabinTypes", on_delete=models.CASCADE)

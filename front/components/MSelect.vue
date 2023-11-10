@@ -23,7 +23,7 @@ export default {
   name: 'MSelect',
   props: {
     value: {
-      type: [String, Number],
+      type: [String, Number, Object],
       default: null,
     },
     items: {

@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     "flight",
     "django_filters",
     "tickets",
-    "feedback"
+    "feedback",
+    "stats",
 ]
 
 MIDDLEWARE = [
