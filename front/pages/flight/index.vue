@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="flight"
-  >
+  <div class="flight">
     <v-container>
       <nuxt-link to="/flight/search">
         <v-btn block color="primary" height="57" class="mb-10">
@@ -14,7 +12,7 @@
         :items="airList"
         :item-class="getClasses"
       >
-       <template v-slot:item.actions="{ item }">
+        <template v-slot:item.actions="{ item }">
           <v-icon
             :color="!item.confirmed ? 'white' : 'black'"
             small
@@ -32,16 +30,9 @@
           </v-icon>
         </template>
       </v-data-table>
-      <v-row
-        class="mt-1"
-      >
+      <v-row class="mt-1">
         <v-col>
-          <v-btn
-            color="primary"
-            block
-            height="60px"
-            @click="fileDialog = true"
-          >
+          <v-btn color="primary" block height="60px" @click="fileDialog = true">
             Import Changes
           </v-btn>
         </v-col>
@@ -54,10 +45,7 @@
       @updateShedule="onUpdateShedule"
     />
 
-    <file-flight-dialog
-      v-model="fileDialog"
-      @updateShedule="onUpdateShedule"
-    />
+    <file-flight-dialog v-model="fileDialog" @updateShedule="onUpdateShedule" />
   </div>
 </template>
 
@@ -69,15 +57,13 @@ export default {
     EditFlightDialog,
     FileFlightDialog,
   },
-  async asyncData({
-    store
-  }) {
+  async asyncData({ store }) {
     await store.dispatch('flight/fetchAirportList')
-    await store.dispatch('flight/fetchAirList', {ordering: '-data'})
+    await store.dispatch('flight/fetchAirList', { ordering: '-data' })
   },
 
-  data(){
-    return{
+  data() {
+    return {
       filters: {
         ordering: '-data',
         from: '',
@@ -127,7 +113,7 @@ export default {
           align: 'start',
           sortable: true,
           value: 'actions',
-        }
+        },
       ],
       dialog: false,
       editForm: {
@@ -150,15 +136,15 @@ export default {
       return this.$store.state.flight.airportList
     },
     airportListTo() {
-      return this.airportList.filter(el => el.id !== this.filters.from)
-    }
+      return this.airportList.filter((el) => el.id !== this.filters.from)
+    },
   },
   methods: {
     canselAirList(id) {
       this.$store.dispatch('flight/canselAirList', id)
     },
     async onUpdateShedule() {
-      await this.$store.dispatch('flight/fetchAirList', {ordering: '-data'})
+      await this.$store.dispatch('flight/fetchAirList', { ordering: '-data' })
     },
     editItem(item) {
       this.editForm = {
@@ -175,14 +161,14 @@ export default {
     },
     getClasses(item) {
       const classes = []
-      
+
       if (!item.confirmed) {
         classes.push('red')
       }
 
       return classes.join(' ')
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -196,10 +182,10 @@ export default {
 
   &:deep() {
     .red {
-      background: #FF6A55 !important;
+      background: #ff6a55 !important;
       color: #fff !important;
       &:hover {
-        background: #FF6A55 !important;
+        background: #ff6a55 !important;
       }
     }
   }

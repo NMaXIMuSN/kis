@@ -22,5 +22,5 @@ urlpatterns = [
     path('api/', include("amonic.urls")),
     path('api/flight.', include("flight.urls")),
     path('api/tickets', include("tickets.urls")),
-
+    path("api/survey/", include("feedback.urls"))
 ]
