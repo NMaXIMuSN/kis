@@ -2,9 +2,7 @@
   <v-card>
     <v-card-actions>
       <v-row>
-        <v-col
-          cols="4"
-        >
+        <v-col cols="4">
           <m-select
             v-model="filters.from"
             :items="airportList"
@@ -14,9 +12,7 @@
             item-value="iata_code"
           />
         </v-col>
-        <v-col
-          cols="4"
-        >
+        <v-col cols="4">
           <m-select
             v-model="filters.to"
             :items="airportListTo"
@@ -36,9 +32,7 @@
             item-value="value"
           />
         </v-col>
-        <v-col
-          cols="4"
-        >
+        <v-col cols="4">
           <v-menu
             ref="menu"
             v-model="menu"
@@ -59,19 +53,9 @@
                 v-on="on"
               ></v-text-field>
             </template>
-            <v-date-picker
-              v-model="filters.date"
-              no-title
-              scrollable
-            >
+            <v-date-picker v-model="filters.date" no-title scrollable>
               <v-spacer></v-spacer>
-              <v-btn
-                text
-                color="primary"
-                @click="menu = false"
-              >
-                Cancel
-              </v-btn>
+              <v-btn text color="primary" @click="menu = false"> Cancel </v-btn>
               <v-btn
                 text
                 color="primary"
@@ -82,9 +66,7 @@
             </v-date-picker>
           </v-menu>
         </v-col>
-        <v-col
-          cols="4"
-        >
+        <v-col cols="4">
           <v-text-field
             v-model="filters.flightNumber"
             outlined
@@ -92,15 +74,8 @@
             clearable
           />
         </v-col>
-        <v-col
-          cols="4"
-        >
-          <v-btn
-            color="primary"
-            block
-            style="height: 56px"
-            @click="accept"
-          >
+        <v-col cols="4">
+          <v-btn color="primary" block style="height: 56px" @click="accept">
             Accept
           </v-btn>
         </v-col>
@@ -113,8 +88,8 @@
 import MSelect from './MSelect.vue'
 export default {
   components: { MSelect },
-  data(){
-    return{
+  data() {
+    return {
       menu: false,
       filters: {
         ordering: '-date',
@@ -156,7 +131,7 @@ export default {
           name: 'confirmed down',
           value: '-confirmed',
         },
-      ]
+      ],
     }
   },
   computed: {
@@ -164,7 +139,7 @@ export default {
       return this.$store.state.flight.airportList
     },
     airportListTo() {
-      return this.airportList.filter(el => el.id !== this.filters.from)
+      return this.airportList.filter((el) => el.iata_code !== this.filters.from)
     },
   },
   methods: {
@@ -172,11 +147,9 @@ export default {
       this.$store.commit('flight/setFilters', this.filters)
 
       this.$store.dispatch('flight/fetchAirList')
-    }
-  }
+    },
+  },
 }
 </script>
 
-<style>
-
-</style>
+<style></style>
