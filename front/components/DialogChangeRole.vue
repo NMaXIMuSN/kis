@@ -104,11 +104,11 @@ export default {
     },
     formValue(val) {
       this.form = {
-        role_id: this.roles.find(el => el.title === val.role__title)?.id || '',
+        role_id: this.roles.find(el => el.title === val.role?.title)?.id || '',
         email: val.email || '',
         first_name: val.first_name || '',
         last_name: val.last_name || '',
-        office_id: val.office || '',
+        office_id: this.officeList.find(el => el.title === val.office?.title)?.id || '',
         id: val.id || '',
       }
     },

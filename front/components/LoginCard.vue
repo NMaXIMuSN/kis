@@ -42,7 +42,7 @@
           :disabled="disable"
           @click="login"
         >
-          Lodin
+          Login
         </v-btn>
       </v-col> 
       <v-col

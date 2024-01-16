@@ -70,7 +70,7 @@ export default {
   },
   data() {
     return {
-      currenOffice: {},
+      currenOffice: null,
       headers: [
         {
           text: 'Name',
@@ -126,7 +126,13 @@ export default {
       return this.$store.state.officeList.list
     },
     users() {
-      return this.$store.state.users.usersList
+      if (!this.currenOffice) {
+        return this.$store.state.users.usersList
+      }
+
+      const idOffice = this.officeList.find(el => el.id === this.currenOffice)?.title
+
+      return this.$store.state.users.usersList.filter(el => el.office?.title === idOffice)
     },
   },
   watch: {

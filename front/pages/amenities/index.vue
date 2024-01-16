@@ -68,7 +68,7 @@ export default {
     },
     ticketsListValidate() {
       return this.ticketsList.map(el => ({
-        text: `${el.schedule?.id}, ${el.schedule?.route.departure_airport.iata_code}-${el.schedule?.route.arrival_airport.iata_code}, ${el.schedule?.date}, ${el.schedule.time}`,
+        text: `${el.first_name} ${el.last_name}, ${el.schedule?.id}, ${el.schedule?.route.departure_airport.iata_code}-${el.schedule?.route.arrival_airport.iata_code}, ${el.schedule?.date}, ${el.schedule.time}`,
         value: el,
       }))
     }
@@ -108,9 +108,11 @@ export default {
         const { data } = await this.$axios.get(`/tickets/list?booking_reference=${this.bookingReference}`)
         
         this.ticketsList = data.filter((el) => {
-          const date = new Date(`${el.schedule.date} ${el.schedule.time}`)
-          date.setDate(date.getDate() - 1)
-          return Date.now() < date.getTime()
+          return true
+
+          // const date = new Date(`${el.schedule.date} ${el.schedule.time}`)
+          // date.setDate(date.getDate() - 1)
+          // return Date.now() < date.getTime()
         })
       } catch (error) {
         console.error(error)

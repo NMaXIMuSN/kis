@@ -95,7 +95,7 @@ export default {
         ordering: '-date',
         from: '',
         to: '',
-        date: '',
+        date: null,
         flightNumber: '',
       },
       sortingItems: [

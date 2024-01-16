@@ -68,7 +68,7 @@ export default {
         ordering: '-data',
         from: '',
         to: '',
-        date: '',
+        date: null,
         flightNumber: '',
       },
       headers: [
@@ -122,7 +122,7 @@ export default {
         economy_price: '',
         aircraft: '',
         time: '',
-        date: '',
+        date: null,
         id: null,
       },
       fileDialog: false,
